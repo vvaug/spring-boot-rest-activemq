@@ -25,12 +25,20 @@ public class JmsConfig {
 	}
 	
 	@Bean
-	public JmsListenerContainerFactory<?> getListenerFactory(ConnectionFactory connectionFactory,
+	public JmsListenerContainerFactory<?> QueueListenerFactory (ConnectionFactory connectionFactory,
 			                                                 DefaultJmsListenerContainerFactoryConfigurer configurer){
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
 		configurer.configure(factory, connectionFactory);
+		return factory;
+	}
+	
+	@Bean
+	public JmsListenerContainerFactory<?> TopicListenerFactory (ConnectionFactory connectionFactory,
+			                                                   DefaultJmsListenerContainerFactoryConfigurer configurer){
+		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+		configurer.configure(factory, connectionFactory);
 		/* for topic */
-		//factory.setPubSubDomain(true);
+		factory.setPubSubDomain(true);
 		return factory;
 	}
 	
